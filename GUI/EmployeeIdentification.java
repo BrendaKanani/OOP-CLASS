@@ -4,38 +4,53 @@ import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.border.TitledBorder;
 import javax.swing.JLabel;
-import java.awt.Color;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.SwingConstants;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.awt.Font;
 
+public class EmployeeIdentification {
 
-public class EmployeeIdentification extends JFrame {
-
-	private static final long serialVersionUID = 1L;
-	private JPanel contentPane;
-	private JTextField employeeName;
-	private JTextField HourlySal;
-	private JTextField Mon1;
-	private JTextField Tue1;
-	private JTextField wed1;
-	private JTextField Thu1;
-	private JTextField Fri1;
-	private JTextField Sat1;
-	private JTextField Sun1;
-	private JTextField Mon2;
-	private JTextField Tue2;
-	private JTextField Wed2;
-	private JTextField Thu2;
-	private JTextField Fri2;
-	private JTextField Sat2;
-	private JTextField Sun2;
-	private JTextField RegularHours;
-	private JTextField OvertimeHours;
-	private JTextField RegularAmount;
-	private JTextField OvertimeAmount;
-	private JTextField NetPay;
+	private JFrame frmGeorgetownCleaningServices;
+	private JTextField txtEmployeeName;
+	private JTextField txtHourlySalary;
+	private JTextField txtMon1;
+	private JTextField txtTue1;
+	private JTextField txtWed1;
+	private JTextField txtThur1;
+	private JTextField txtFri1;
+	private JTextField txtSat1;
+	private JTextField txtSun1;
+	private JTextField txtSun2;
+	private JTextField txtSat2;
+	private JTextField txtFri2;
+	private JTextField txtThur2;
+	private JTextField txtWed2;
+	private JTextField txtTue2;
+	private JTextField txtMon2;
+	private JButton btnProcess;
+	private JLabel lblMonday;
+	private JLabel lblTuesday;
+	private JLabel lblWednesday;
+	private JLabel lblThursday;
+	private JLabel lblFriday;
+	private JLabel lblSaturday;
+	private JLabel lblSunday;
+	private JButton btnClose;
+	private JTextField txtRegularHours;
+	private JTextField txtRegularAmt;
+	private JTextField txtOvertimeHours;
+	private JTextField txtOvertimeAmt;
+	private JLabel lblHours;
+	private JLabel lblAmount;
+	private JTextField txtNetPay;
+	private JLabel lblNetPay;
+	private JLabel lblRegular;
+	private JLabel lblOvertime;
 
 	/**
 	 * Launch the application.
@@ -44,8 +59,8 @@ public class EmployeeIdentification extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					EmployeeIdentification frame = new EmployeeIdentification();
-					frame.setVisible(true);
+					EmployeeIdentification window = new EmployeeIdentification();
+					window.frmGeorgetownCleaningServices.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -54,208 +69,261 @@ public class EmployeeIdentification extends JFrame {
 	}
 
 	/**
-	 * Create the frame.
+	 * Create the application.
 	 */
 	public EmployeeIdentification() {
-		setForeground(new Color(0, 64, 128));
-		setBackground(new Color(0, 128, 192));
-		setTitle("GeorgeTown Cleaning Services-Employee Payroll");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 652, 430);
-		contentPane = new JPanel();
-		contentPane.setForeground(new Color(0, 128, 192));
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		initialize();
+	}
+	static double[] getHours(double[] weekHours){
+		double[] hours = new double[2];
+		for(int i = 0 ; i< weekHours.length ; i++){
+			if(weekHours[i] > 8){
+				hours[1] += weekHours[i] - 8;
+				hours[0] += 8;
+			}
+			else{
+				hours[0] += weekHours[i];
+			}
+		}
+		return hours;
+	}
 
-		setContentPane(contentPane);
-		contentPane.setLayout(null);
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frmGeorgetownCleaningServices = new JFrame();
+		frmGeorgetownCleaningServices.setFont(new Font("Cooper Black", Font.BOLD, 14));
+		frmGeorgetownCleaningServices.setTitle("GeorgeTown Cleaning Services-Employee Payroll");
+		frmGeorgetownCleaningServices.setBounds(100, 100, 1001, 584);
+		frmGeorgetownCleaningServices.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frmGeorgetownCleaningServices.getContentPane().setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("Employee Identification");
-		lblNewLabel.setBounds(46, 24, 126, 14);
-		contentPane.add(lblNewLabel);
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(null, "Employee Identification", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel.setBounds(15, 38, 949, 101);
+		frmGeorgetownCleaningServices.getContentPane().add(panel);
+		panel.setLayout(null);
 		
-		JLabel lblNewLabel_1 = new JLabel("Employee Name:");
-		lblNewLabel_1.setBounds(31, 49, 111, 14);
-		contentPane.add(lblNewLabel_1);
+		JLabel lblEmployeeName = new JLabel("Employee Name:");
+		lblEmployeeName.setBounds(60, 51, 131, 20);
+		panel.add(lblEmployeeName);
 		
-		employeeName = new JTextField();
-		employeeName.setBounds(150, 49, 111, 14);
-		contentPane.add(employeeName);
-		employeeName.setColumns(10);
+		txtEmployeeName = new JTextField();
+		lblEmployeeName.setLabelFor(txtEmployeeName);
+		txtEmployeeName.setBounds(206, 48, 229, 26);
+		panel.add(txtEmployeeName);
+		txtEmployeeName.setColumns(10);
 		
-		JLabel lblNewLabel_2 = new JLabel("Hourly salary:");
-		lblNewLabel_2.setBounds(271, 49, 86, 14);
-		contentPane.add(lblNewLabel_2);
+		JLabel lblHourlySalary = new JLabel("Hourly Salary:");
+		lblHourlySalary.setBounds(471, 51, 101, 20);
+		panel.add(lblHourlySalary);
 		
-		HourlySal = new JTextField("");
-		HourlySal.setBounds(353, 49, 94, 14);
-		contentPane.add(HourlySal);
-		HourlySal.setColumns(10);
+		txtHourlySalary = new JTextField();
+		txtHourlySalary.setBounds(587, 48, 208, 26);
+		panel.add(txtHourlySalary);
+		txtHourlySalary.setColumns(10);
 		
-		JLabel lblNewLabel_3 = new JLabel("Time Sheet");
-		lblNewLabel_3.setBounds(46, 107, 60, 14);
-		contentPane.add(lblNewLabel_3);
+		JPanel panel_1 = new JPanel();
+		panel_1.setBorder(new TitledBorder(null, "Time Sheet", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_1.setBounds(15, 167, 949, 172);
+		frmGeorgetownCleaningServices.getContentPane().add(panel_1);
+		panel_1.setLayout(null);
 		
-		JLabel lblNewLabel_4 = new JLabel("First Week:");
-		lblNewLabel_4.setBounds(31, 151, 86, 14);
-		contentPane.add(lblNewLabel_4);
+		JLabel lblFirstWeek = new JLabel("First Week:");
+		lblFirstWeek.setBounds(34, 78, 103, 20);
+		panel_1.add(lblFirstWeek);
 		
-		JLabel lblNewLabel_5 = new JLabel("Monday");
-		lblNewLabel_5.setBounds(139, 125, 46, 14);
-		contentPane.add(lblNewLabel_5);
+		JLabel lblSecondWeek = new JLabel("Second Week:");
+		lblSecondWeek.setBounds(34, 122, 103, 20);
+		panel_1.add(lblSecondWeek);
 		
-		JLabel lblNewLabel_6 = new JLabel("Tuesday");
-		lblNewLabel_6.setBounds(195, 125, 46, 14);
-		contentPane.add(lblNewLabel_6);
+		txtMon1 = new JTextField();
+		txtMon1.setBounds(137, 75, 87, 26);
+		panel_1.add(txtMon1);
+		txtMon1.setColumns(10);
 		
-		JLabel lblNewLabel_7 = new JLabel("Wednesday");
-		lblNewLabel_7.setBounds(251, 125, 63, 14);
-		contentPane.add(lblNewLabel_7);
+		txtTue1 = new JTextField();
+		txtTue1.setColumns(10);
+		txtTue1.setBounds(239, 75, 87, 26);
+		panel_1.add(txtTue1);
 		
-		JLabel lblNewLabel_8 = new JLabel("Thursday");
-		lblNewLabel_8.setBounds(314, 125, 60, 14);
-		contentPane.add(lblNewLabel_8);
+		txtWed1 = new JTextField();
+		txtWed1.setColumns(10);
+		txtWed1.setBounds(341, 75, 87, 26);
+		panel_1.add(txtWed1);
 		
-		JLabel lblNewLabel_9 = new JLabel("Friday");
-		lblNewLabel_9.setBounds(380, 125, 46, 14);
-		contentPane.add(lblNewLabel_9);
+		txtThur1 = new JTextField();
+		txtThur1.setColumns(10);
+		txtThur1.setBounds(443, 75, 87, 26);
+		panel_1.add(txtThur1);
 		
-		JLabel lblNewLabel_10 = new JLabel("Saturday");
-		lblNewLabel_10.setBounds(434, 125, 60, 14);
-		contentPane.add(lblNewLabel_10);
+		txtFri1 = new JTextField();
+		txtFri1.setColumns(10);
+		txtFri1.setBounds(545, 75, 87, 26);
+		panel_1.add(txtFri1);
 		
-		JLabel lblNewLabel_11 = new JLabel("Sunday");
-		lblNewLabel_11.setBounds(505, 125, 46, 14);
-		contentPane.add(lblNewLabel_11);
+		txtSat1 = new JTextField();
+		txtSat1.setColumns(10);
+		txtSat1.setBounds(647, 75, 87, 26);
+		panel_1.add(txtSat1);
 		
-		Mon1 = new JTextField();
-		Mon1.setBounds(132, 148, 53, 20);
-		contentPane.add(Mon1);
-		Mon1.setColumns(10);
+		txtSun1 = new JTextField();
+		txtSun1.setColumns(10);
+		txtSun1.setBounds(749, 75, 87, 26);
+		panel_1.add(txtSun1);
 		
-		Tue1 = new JTextField();
-		Tue1.setBounds(195, 148, 46, 20);
-		contentPane.add(Tue1);
-		Tue1.setColumns(10);
+		txtSun2 = new JTextField();
+		txtSun2.setColumns(10);
+		txtSun2.setBounds(749, 116, 87, 26);
+		panel_1.add(txtSun2);
 		
-		wed1 = new JTextField();
-		wed1.setBounds(251, 148, 53, 20);
-		contentPane.add(wed1);
-		wed1.setColumns(10);
+		txtSat2 = new JTextField();
+		txtSat2.setColumns(10);
+		txtSat2.setBounds(647, 116, 87, 26);
+		panel_1.add(txtSat2);
 		
-		Thu1 = new JTextField();
-		Thu1.setBounds(314, 148, 49, 20);
-		contentPane.add(Thu1);
-		Thu1.setColumns(10);
+		txtFri2 = new JTextField();
+		txtFri2.setColumns(10);
+		txtFri2.setBounds(545, 116, 87, 26);
+		panel_1.add(txtFri2);
 		
-		Fri1 = new JTextField();
-		Fri1.setBounds(373, 148, 46, 20);
-		contentPane.add(Fri1);
-		Fri1.setColumns(10);
+		txtThur2 = new JTextField();
+		txtThur2.setColumns(10);
+		txtThur2.setBounds(443, 116, 87, 26);
+		panel_1.add(txtThur2);
 		
-		Sat1 = new JTextField();
-		Sat1.setBounds(444, 148, 46, 20);
-		contentPane.add(Sat1);
-		Sat1.setColumns(10);
+		txtWed2 = new JTextField();
+		txtWed2.setColumns(10);
+		txtWed2.setBounds(341, 116, 87, 26);
+		panel_1.add(txtWed2);
 		
-		Sun1 = new JTextField();
-		Sun1.setBounds(505, 148, 46, 20);
-		contentPane.add(Sun1);
-		Sun1.setColumns(10);
+		txtTue2 = new JTextField();
+		txtTue2.setColumns(10);
+		txtTue2.setBounds(239, 116, 87, 26);
+		panel_1.add(txtTue2);
 		
-		JLabel lblNewLabel_12 = new JLabel("Second Week:");
-		lblNewLabel_12.setBounds(31, 187, 86, 14);
-		contentPane.add(lblNewLabel_12);
+		txtMon2 = new JTextField();
+		txtMon2.setColumns(10);
+		txtMon2.setBounds(137, 116, 87, 26);
+		panel_1.add(txtMon2);
 		
-		Mon2 = new JTextField();
-		Mon2.setBounds(132, 184, 53, 20);
-		contentPane.add(Mon2);
-		Mon2.setColumns(10);
+		lblMonday = new JLabel("Monday");
+		lblMonday.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMonday.setBounds(137, 39, 87, 26);
+		panel_1.add(lblMonday);
 		
-		Tue2 = new JTextField();
-		Tue2.setBounds(195, 184, 46, 20);
-		contentPane.add(Tue2);
-		Tue2.setColumns(10);
+		lblTuesday = new JLabel("Tuesday");
+		lblTuesday.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTuesday.setBounds(239, 39, 87, 26);
+		panel_1.add(lblTuesday);
 		
-		Wed2 = new JTextField();
-		Wed2.setBounds(251, 184, 53, 20);
-		contentPane.add(Wed2);
-		Wed2.setColumns(10);
+		lblWednesday = new JLabel("Wednesday");
+		lblWednesday.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWednesday.setBounds(341, 39, 87, 26);
+		panel_1.add(lblWednesday);
 		
-		Thu2 = new JTextField();
-		Thu2.setBounds(314, 184, 46, 20);
-		contentPane.add(Thu2);
-		Thu2.setColumns(10);
+		lblThursday = new JLabel("Thursday");
+		lblThursday.setHorizontalAlignment(SwingConstants.CENTER);
+		lblThursday.setBounds(443, 39, 87, 26);
+		panel_1.add(lblThursday);
 		
-		Fri2 = new JTextField();
-		Fri2.setBounds(373, 184, 46, 20);
-		contentPane.add(Fri2);
-		Fri2.setColumns(10);
+		lblFriday = new JLabel("Friday");
+		lblFriday.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFriday.setBounds(545, 39, 87, 26);
+		panel_1.add(lblFriday);
 		
-		Sat2 = new JTextField();
-		Sat2.setBounds(444, 179, 46, 20);
-		contentPane.add(Sat2);
-		Sat2.setColumns(10);
+		lblSaturday = new JLabel("Saturday");
+		lblSaturday.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSaturday.setBounds(647, 39, 87, 26);
+		panel_1.add(lblSaturday);
 		
-		Sun2 = new JTextField();
-		Sun2.setBounds(505, 184, 46, 20);
-		contentPane.add(Sun2);
-		Sun2.setColumns(10);
+		lblSunday = new JLabel("Sunday");
+		lblSunday.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSunday.setBounds(749, 39, 87, 26);
+		panel_1.add(lblSunday);
 		
-		JLabel lblNewLabel_13 = new JLabel("Payroll Processing");
-		lblNewLabel_13.setBounds(46, 231, 112, 14);
-		contentPane.add(lblNewLabel_13);
+		JPanel panel_2 = new JPanel();
+		panel_2.setBorder(new TitledBorder(null, "Payroll Processing", TitledBorder.LEADING, TitledBorder.TOP, null, null));
+		panel_2.setBounds(15, 362, 949, 139);
+		frmGeorgetownCleaningServices.getContentPane().add(panel_2);
+		panel_2.setLayout(null);
 		
-		JButton Process = new JButton("Process It");
-		Process.setBounds(56, 256, 102, 102);
-		contentPane.add(Process);
+		btnProcess = new JButton("Process It");
+		btnProcess.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent event) {
+				double[] week1Hours = {Double.valueOf(txtMon1.getText()),Double.valueOf(txtTue1.getText()),Double.valueOf(txtWed1.getText()),Double.valueOf(txtThur1.getText()),Double.valueOf(txtFri1.getText()),Double.valueOf(txtSat1.getText()),Double.valueOf(txtSun1.getText())};
+				double[] week2Hours = {Double.valueOf(txtMon2.getText()),Double.valueOf(txtTue2.getText()),Double.valueOf(txtWed2.getText()),Double.valueOf(txtThur2.getText()),Double.valueOf(txtFri2.getText()),Double.valueOf(txtSat2.getText()),Double.valueOf(txtSun2.getText())};
+				double[] time = getHours(week1Hours);
+				double[] time1 = getHours(week2Hours);
+				double regularHours = time[0] + time1[0];
+				double overtimeHours = time[1] + time1[1];
+				double hourlySalary = Double.valueOf(txtHourlySalary.getText());
+				double regularPay = regularHours * hourlySalary;
+				double overtimePay = overtimeHours * hourlySalary;
+				double netPay = regularPay + overtimePay;
+				txtRegularHours.setText(String.valueOf(regularHours));
+				txtRegularAmt.setText(String.valueOf(regularPay));
+				txtOvertimeHours.setText(String.valueOf(overtimeHours));
+				txtOvertimeAmt.setText(String.valueOf(overtimePay));
+				txtNetPay.setText(String.valueOf(netPay));
+			}
+		});
+		btnProcess.setBounds(15, 35, 121, 88);
+		panel_2.add(btnProcess);
 		
-		JLabel lblNewLabel_14 = new JLabel("Regular:");
-		lblNewLabel_14.setBounds(178, 285, 46, 14);
-		contentPane.add(lblNewLabel_14);
+		btnClose = new JButton("Close");
+		btnClose.setBounds(807, 35, 127, 88);
+		panel_2.add(btnClose);
 		
-		JLabel lblNewLabel_15 = new JLabel("Overtime:");
-		lblNewLabel_15.setBounds(178, 323, 53, 14);
-		contentPane.add(lblNewLabel_15);
+		txtRegularHours = new JTextField();
+		txtRegularHours.setColumns(10);
+		txtRegularHours.setBounds(285, 66, 87, 26);
+		panel_2.add(txtRegularHours);
 		
-		JLabel lblNewLabel_16 = new JLabel("Hours");
-		lblNewLabel_16.setBounds(251, 256, 46, 14);
-		contentPane.add(lblNewLabel_16);
+		txtRegularAmt = new JTextField();
+		txtRegularAmt.setColumns(10);
+		txtRegularAmt.setBounds(406, 66, 87, 26);
+		panel_2.add(txtRegularAmt);
 		
-		JLabel lblNewLabel_17 = new JLabel("Amount");
-		lblNewLabel_17.setBounds(324, 256, 46, 14);
-		contentPane.add(lblNewLabel_17);
+		txtOvertimeHours = new JTextField();
+		txtOvertimeHours.setColumns(10);
+		txtOvertimeHours.setBounds(285, 97, 87, 26);
+		panel_2.add(txtOvertimeHours);
 		
-		RegularHours = new JTextField();
-		RegularHours.setBounds(234, 282, 60, 20);
-		contentPane.add(RegularHours);
-		RegularHours.setColumns(10);
+		txtOvertimeAmt = new JTextField();
+		txtOvertimeAmt.setColumns(10);
+		txtOvertimeAmt.setBounds(406, 97, 87, 26);
+		panel_2.add(txtOvertimeAmt);
 		
-		OvertimeHours = new JTextField();
-		OvertimeHours.setBounds(234, 320, 60, 20);
-		contentPane.add(OvertimeHours);
-		OvertimeHours.setColumns(10);
+		lblHours = new JLabel("Hours");
+		lblHours.setHorizontalAlignment(SwingConstants.CENTER);
+		lblHours.setBounds(285, 35, 87, 26);
+		panel_2.add(lblHours);
 		
-		RegularAmount = new JTextField();
-		RegularAmount.setBounds(314, 282, 60, 20);
-		contentPane.add(RegularAmount);
-		RegularAmount.setColumns(10);
+		lblAmount = new JLabel("Amount");
+		lblAmount.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAmount.setBounds(406, 35, 87, 26);
+		panel_2.add(lblAmount);
 		
-		OvertimeAmount = new JTextField();
-		OvertimeAmount.setBounds(314, 320, 60, 20);
-		contentPane.add(OvertimeAmount);
-		OvertimeAmount.setColumns(10);
+		txtNetPay = new JTextField();
+		txtNetPay.setColumns(10);
+		txtNetPay.setBounds(680, 66, 87, 26);
+		panel_2.add(txtNetPay);
 		
-		JLabel lblNewLabel_18 = new JLabel("Net Pay:");
-		lblNewLabel_18.setBounds(384, 300, 46, 14);
-		contentPane.add(lblNewLabel_18);
+		lblNetPay = new JLabel("Net Pay:");
+		lblNetPay.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNetPay.setBounds(578, 66, 87, 26);
+		panel_2.add(lblNetPay);
 		
-		NetPay = new JTextField();
-		NetPay.setBounds(434, 297, 60, 20);
-		contentPane.add(NetPay);
-		NetPay.setColumns(10);
+		lblRegular = new JLabel("Regular:");
+		lblRegular.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRegular.setBounds(170, 66, 87, 26);
+		panel_2.add(lblRegular);
 		
-		JButton Close = new JButton("Close");
-		Close.setBounds(504, 256, 102, 102);
-		contentPane.add(Close);
+		lblOvertime = new JLabel("Overtime:");
+		lblOvertime.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOvertime.setBounds(170, 97, 87, 26);
+		panel_2.add(lblOvertime);
 	}
 }
