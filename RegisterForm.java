@@ -18,7 +18,6 @@ public class RegisterForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtRegisterForm;
 	private JTextField txtName;
 	private JTextField txtUsername;
 	private JTextField txtEmail;
@@ -26,8 +25,7 @@ public class RegisterForm extends JFrame {
 	private JTextField txtAddress;
 	private JPasswordField passwordField;
 	private JPasswordField passwordField_1;
-	private JTextField txtPassword;
-	private JTextField txtConfirmPassword;
+	private JLabel lblNewLabel;
 
 	/**
 	 * Launch the application.
@@ -56,13 +54,6 @@ public class RegisterForm extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		txtRegisterForm = new JTextField();
-		txtRegisterForm.setFont(new Font("Tahoma", Font.BOLD, 17));
-		txtRegisterForm.setText("Register Form");
-		txtRegisterForm.setBounds(10, 21, 165, 28);
-		contentPane.add(txtRegisterForm);
-		txtRegisterForm.setColumns(10);
 		
 		txtName = new JTextField();
 		txtName.setBounds(174, 60, 208, 20);
@@ -112,7 +103,7 @@ public class RegisterForm extends JFrame {
 		
 		JLabel lblNewLabel_2_4 = new JLabel("Address:");
 		lblNewLabel_2_4.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblNewLabel_2_4.setBounds(65, 284, 46, 14);
+		lblNewLabel_2_4.setBounds(49, 284, 62, 14);
 		contentPane.add(lblNewLabel_2_4);
 		
 		passwordField = new JPasswordField();
@@ -131,9 +122,13 @@ public class RegisterForm extends JFrame {
 		JButton btnNewButton_1 = new JButton("Reset");
 		btnNewButton_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				txtName.setText(null);
 				txtUsername.setText(null);
-				txtPassword.setText(null);
-				txtConfirmPassword.setText(null);
+				passwordField.setText(null);
+				passwordField_1.setText(null);
+				txtEmail.setText(null);
+				txtPhone.setText(null);
+				txtAddress.setText(null);
 			    
 			}
 		});
@@ -144,25 +139,27 @@ public class RegisterForm extends JFrame {
 		JButton btnNewButton_2 = new JButton("Close");
 		btnNewButton_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				System.exit(0);
 			}
 		});
 		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 11));
 		btnNewButton_2.setBounds(357, 346, 89, 23);
 		contentPane.add(btnNewButton_2);
 		
-		txtPassword = new JTextField();
-		txtPassword.setHorizontalAlignment(SwingConstants.RIGHT);
-		txtPassword.setText("Password:");
-		txtPassword.setBounds(25, 127, 86, 20);
-		contentPane.add(txtPassword);
-		txtPassword.setColumns(10);
+		lblNewLabel = new JLabel("Register Form");
+		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
+		lblNewLabel.setBounds(25, 11, 184, 20);
+		contentPane.add(lblNewLabel);
 		
-		txtConfirmPassword = new JTextField();
-		txtConfirmPassword.setHorizontalAlignment(SwingConstants.RIGHT);
-		txtConfirmPassword.setText("Confirm Password:");
-		txtConfirmPassword.setBounds(10, 168, 101, 20);
-		contentPane.add(txtConfirmPassword);
-		txtConfirmPassword.setColumns(10);
+		JLabel lblNewLabel_1 = new JLabel("Password:");
+		lblNewLabel_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_1.setBounds(49, 130, 62, 14);
+		contentPane.add(lblNewLabel_1);
+		
+		JLabel lblNewLabel_1_1 = new JLabel("Confirm Password:");
+		lblNewLabel_1_1.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblNewLabel_1_1.setBounds(10, 171, 101, 14);
+		contentPane.add(lblNewLabel_1_1);
 		
 		
 		
